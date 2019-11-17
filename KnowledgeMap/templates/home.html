@@ -1,5 +1,49 @@
-<h1>HomePage</h1>
 
-<form action="{% url 'search_results' %}" method="get">
-  <input name="q" type="text" placeholder="Search...">
-</form>
+{% load static %}
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'KnowledgeMap/css/search_style.css' %}" media="screen,projection">
+    <style>
+
+      body {
+         background-image: url("{% static 'KnowledgeMap/images/background.png' %}");
+      }
+
+      input[type=text]{
+         background: url("{% static 'KnowledgeMap/images/search-24px.svg' %}") no-repeat 10px 10px;
+      }
+
+      .parent {
+          display:table;
+          height:40%;
+          width:100%;
+      }
+
+      .inner_parent {
+        display:table-cell;
+        text-align:center;
+        vertical-align:middle;
+      }
+
+      .logo{
+        text-align:center;
+      }
+
+    </style>
+  </head>
+  <body>
+      <div class="logo">
+        <a class="navbar-brand" href="https://www.valuelabs.com/">
+          <img src="{% static 'KnowledgeMap/images/valuelabs-logo.svg' %}" alt="ValueLabs" height="25%" width="25%"/>
+        </a>
+      </div>
+      <div class="parent">
+        <div class="inner_parent">
+          <form id="form_search" autocomplete="off" action="{% url 'search_results' %}" method="get">
+            <input name="q" type="text" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+  </body>
+</html>

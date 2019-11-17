@@ -1,9 +1,122 @@
-<h1>Search Results</h1>
+{% load static %}
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link rel="stylesheet" type="text/css" href="{% static 'KnowledgeMap/css/materialize.min.css' %}" media="screen,projection">
 
-<ul>
-  {% for client in object_list %}
-    <li>
-      {{ client.name }}, {{ client.desc }}
-    </li>
-  {% endfor %}
-</ul>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+      body {
+         background-image: url("{% static 'KnowledgeMap/images/background.png' %}");
+      }
+
+      .card-small {
+        width:300px;
+      }
+
+      #input_search {
+        width: 15%; !important
+        height:10%;
+        box-sizing: border-box;
+        border: 2px solid white;
+        border-radius: 22px;
+        font-size: 16px;
+        background: url("{% static 'KnowledgeMap/images/search-24px.svg' %}") no-repeat 10px 10px;
+        background-color: transparent;
+        color: white;
+        padding: 12px 20px 12px 40px;
+        -webkit-transition: width 0.4s ease-in-out;
+        transition: width 0.4s ease-in-out;
+      }
+
+      #input_search:focus {
+        width: 30%;
+        outline: none !important;
+      }
+
+      ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: white;
+        opacity: 1; /* Firefox */
+      }
+
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: white;
+      }
+
+      ::-ms-input-placeholder { /* Microsoft Edge */
+        color: white;
+      }
+
+      /* Float four columns side by side */
+      .column {
+        float: left;
+        width: 25%;
+        padding: 10px 10px;
+      }
+
+
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* Responsive columns - one column layout (vertical) on small screens */
+      @media screen and (max-width: 600px) {
+        .column {
+          width: 100%;
+          display: block;
+          margin-bottom: 20px;
+        }
+      }
+
+      .parent {
+          padding-top: 25px;
+          display:table;
+          width:100%;
+      }
+
+      .inner_parent {
+        display:table-cell;
+        text-align:center;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="parent">
+      <div class="inner_parent">
+        <form id="form_search" autocomplete="off" action="{% url 'search_results' %}" method="get">
+          <input id="input_search" name="q" type="text" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+    {% for project in object_list %}
+      <div class="column">
+        <div class="card hoverable small card-small sticky-action">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="{% static 'KnowledgeMap/images/sample-1.jpg' %}">
+          </div>
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">{{ project.name }}<i class="material-icons right">more_vert</i></span>
+            <p><a href="#">Read more...</a></p>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{ project.name }}<i class="material-icons right">close</i></span>
+            <p>{{ project.desc }}</p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+
+  <script type="text/javascript" src="{% static 'KnowledgeMap/js/materialize.min.js' %}"></script>
+  </body>
+</html>
